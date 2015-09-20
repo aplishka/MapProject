@@ -56,8 +56,9 @@
 
 <script type="text/javascript">
 	function initialize() {
+		var initPosition = new google.maps.LatLng(40.435, -78.442);
 		var mapOptions = {
-				center: new google.maps.LatLng(40.435, -78.442),
+				center: initPosition,
 				mapTypeId: google.maps.MapTypeId.ROADMAP,
 				zoom: 11
 			};
@@ -73,6 +74,7 @@
 				};
 
 				map.setCenter(pos);
+				initPosition = pos;
 			}, function() {
 				handleLocationError(true, map.getCenter());
 			});
@@ -80,6 +82,12 @@
 			// Browser doesn't support Geolocation
 			handleLocationError(false, map.getCenter());
 		}
+
+		var marker = new google.maps.Marker({
+			position: initPosition,
+		    map: map,
+		    title: 'Your location'
+		});
 	};
 
 	function handleLocationError(browserHasGeolocation, pos) {
