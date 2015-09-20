@@ -64,7 +64,7 @@
 			};
 
 		var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-		
+		setMarker(map, initPosition);
 		// Try HTML5 geolocation.
 		if (navigator.geolocation) {
 			navigator.geolocation.getCurrentPosition(function(position) {
@@ -74,7 +74,7 @@
 				};
 
 				map.setCenter(pos);
-				initPosition = pos;
+				setMarker(map, pos);
 			}, function() {
 				handleLocationError(true, map.getCenter());
 			});
@@ -82,16 +82,18 @@
 			// Browser doesn't support Geolocation
 			handleLocationError(false, map.getCenter());
 		}
-
-		var marker = new google.maps.Marker({
-			position: initPosition,
-		    map: map,
-		    title: 'Your location'
-		});
 	};
 
 	function handleLocationError(browserHasGeolocation, pos) {
 		alert("Couldn't find location");
+	};
+
+	function setMarker(map, pos) {
+		var marker = new google.maps.Marker({
+			position: pos,
+		    map: map,
+		    title: 'Your location'
+		});
 	};
 </script>
 
